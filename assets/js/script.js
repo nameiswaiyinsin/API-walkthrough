@@ -43,6 +43,7 @@ async function postForm(e) {
     if (response.ok) {
         displayErrors(data);
     } else {
+        displayException(data);                  //7b. add the displayException(data) to the POST method if there is an exception, in the else statement
         throw new Error(data.error);
     }
 }
@@ -80,6 +81,7 @@ async function getStatus(e) {
     if (response.ok) {
         displayStatus(data);
     } else {
+        displayException(data);              //7c. add the displayException(data) to the GET method also if there is an exception that occured, in the else statement
         throw new Error(data.error);
     }
 }
@@ -96,8 +98,20 @@ function displayStatus(data) {
     resultsModal.show();
 }
 
+// Code along challenge
+// 7 a. Adding an Exception occured modal. with the function displayException() 
 function displayException(data) {
     
+    let heading = `An Exception Occured`;                                       // 7d. adding content
+
+    results = `<div>The API returned status code ${data.status_code}</div>`;    // 7d. adding content
+    results += `<div>Error number: <strong>${data.error_no}</strong></div>`;    // 7d. adding content
+    results += `<div>Error text: <strong>${data.error}</strong></div>`;         // 7d. adding content 
+    
+    document.getElementById("resultsModalTitle").innerText = heading;      // 7e. set the content on the DOM 
+    document.getElementById("results-content").innerHTML = results;        // 7e. set the content on the DOM , and display the modal
+
+    resultsModal.show();      // 7f. now display the modal, using our bootstrap method here
 }
 
 
